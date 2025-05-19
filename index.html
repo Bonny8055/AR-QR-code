@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AR Business Card</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <style>
+        .arjs-loader {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .ar-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="arjs-loader">
+        <div>Loading AR experience...<br>Point your camera at the business card</div>
+    </div>
+    
+    <a-scene 
+        vr-mode-ui="enabled: false"
+        embedded 
+        arjs="sourceType: webcam; detectionMode: manual; debugUIEnabled: false;"
+    >
+        <!-- Hiro marker is the default pattern from AR.js -->
+        <a-marker preset="hiro">
+            <!-- Your 3D content here - example with business card info -->
+            <a-entity position="0 0.5 0" rotation="0 0 0">
+                <a-box position="-0.5 0.3 0" width="0.8" height="0.1" depth="0.8" color="#4CC3D9"></a-box>
+                <a-text 
+                    value="Your Name" 
+                    color="black" 
+                    position="0 0.5 0.4"
+                    align="center"
+                    width="5"
+                ></a-text>
+                <a-text 
+                    value="Job Title" 
+                    color="#333" 
+                    position="0 0.3 0.4"
+                    align="center"
+                    width="4"
+                ></a-text>
+            </a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+    
+    <div class="ar-footer">
+        AR Business Card | Scan the QR code again to reload
+    </div>
+    
+    <script>
+        // Hide loader when AR content is loaded
+        document.querySelector('a-scene').addEventListener('loaded', function() {
+            document.querySelector('.arjs-loader').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
